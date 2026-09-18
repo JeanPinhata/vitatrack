@@ -204,11 +204,7 @@ export function RecipesPage() {
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}
             >
-              <img
-                src={recipe.image_url || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop&q=80'}
-                alt={recipe.name}
-                style={{ width: '100%', height: '180px', objectFit: 'cover' }}
-              />
+
               <div style={{ padding: '16px' }}>
                 <p style={{ fontSize: '0.75rem', color: 'var(--color-primary)', fontWeight: 600, marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{recipe.category}</p>
                 <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '10px', lineHeight: 1.3 }}>{recipe.name}</h3>
@@ -241,7 +237,7 @@ export function RecipesPage() {
       <Modal isOpen={!!showDetail} onClose={() => setShowDetail(null)} title={showDetail?.name || ''} maxWidth="620px">
         {showDetail && (
           <div>
-            <img src={showDetail.image_url} alt={showDetail.name} style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: 'var(--radius-md)', marginBottom: '16px' }} />
+
             <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
               <span className="vt-badge vt-badge-neutral">{showDetail.category}</span>
               <span className="vt-badge vt-badge-neutral"><Clock size={13} /> {showDetail.preparation_time} min</span>
