@@ -114,22 +114,6 @@ export async function runSeed() {
       });
     }
 
-    const recipes = fitRecipes;
-
-    for (const r of recipes) {
-      await db.execute({
-        sql: 'INSERT INTO recipes (id, user_id, name, category, preparation_time, servings, instructions, image_url, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        args: [r.id, marianaId, r.name, r.category, r.prep, r.servings, r.instructions, r.image_url, r.notes]
-      });
-      for (let iIdx = 0; iIdx < r.ingredients.length; iIdx++) {
-        const ing = r.ingredients[iIdx];
-        await db.execute({
-          sql: 'INSERT INTO recipe_ingredients (id, recipe_id, food_id, food_name, quantity, unit, protein_amount) VALUES (?, ?, NULL, ?, ?, ?, ?)',
-          args: [`ing-${r.id}-${iIdx}`, r.id, ing.food_name, ing.quantity, ing.unit, ing.protein]
-        });
-      }
-    }
-
     const proteinEntries = [
       { date: '2026-09-15', meal: 'Café da manhã', name: 'Ovos Cozidos / Mexidos', qty: 100, ref: 100, prot: 13.0, calc: 13.0 },
       { date: '2026-09-15', meal: 'Café da manhã', name: 'Iogurte Grego Natural', qty: 100, ref: 100, prot: 10.0, calc: 10.0 },
@@ -160,6 +144,27 @@ export async function runSeed() {
         'Registro fotográfico do primeiro dia'
       ]
     });
+  }
+
+  // Garante que TODOS os usuários existentes tenham as receitas fit.
+  // INSERT OR IGNORE nunca duplica. Roda sempre que o servidor iniciar.
+  const allUsersRes = await db.execute({ sql: 'SELECT id FROM users', args: [] });
+  for (const userRow of allUsersRes.rows) {
+    for (let rIdx = 0; rIdx < fitRecipes.length; rIdx++) {
+      const r = fitRecipes[rIdx];
+      const recipeId = `${r.id}-${userRow.id}`;
+      await db.execute({
+        sql: 'INSERT OR IGNORE INTO recipes (id, user_id, name, category, preparation_time, servings, instructions, image_url, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        args: [recipeId, userRow.id, r.name, r.category, r.prep, r.servings, r.instructions, r.image_url, r.notes]
+      });
+      for (let iIdx = 0; iIdx < r.ingredients.length; iIdx++) {
+        const ing = r.ingredients[iIdx];
+        await db.execute({
+          sql: 'INSERT OR IGNORE INTO recipe_ingredients (id, recipe_id, food_name, quantity, unit, protein_amount) VALUES (?, ?, ?, ?, ?, ?)',
+          args: [`ing-${recipeId}-${iIdx}`, recipeId, ing.food_name, ing.quantity, ing.unit, ing.protein]
+        });
+      }
+    }
   }
 
   console.log('Banco de dados inicializado e seed executado com sucesso!');
