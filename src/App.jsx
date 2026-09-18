@@ -80,7 +80,7 @@ function AppContent() {
         onClose={() => setShowMobileSidebar(false)} 
       />
       <div className="main-content">
-        <TopBar onMenuClick={() => setShowMobileSidebar(true)} />
+        <TopBar onMenuClick={() => setShowMobileSidebar(true)} onSelectTab={setActiveTab} />
         <main className="content-area">
           {renderContent()}
         </main>
