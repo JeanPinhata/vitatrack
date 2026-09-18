@@ -6,7 +6,7 @@ import { ConfirmDialog } from '../ui/ConfirmDialog';
 import { EmptyState } from '../ui/EmptyState';
 import { useToast } from '../../contexts/ToastContext';
 
-const CATEGORIES = ['Todas', 'Café da Manhã', 'Lanches', 'Almoço & Jantar', 'Pós-treino', 'Geral'];
+const CATEGORIES = ['Todas', 'Café da Manhã', 'Almoço', 'Lanche da Tarde', 'Jantar', 'Sobremesa'];
 
 export function RecipesPage() {
   const { token } = useAuth();
@@ -54,7 +54,7 @@ export function RecipesPage() {
 
   const openAdd = () => {
     setEditRecipe(null);
-    setForm({ name: '', category: 'Geral', preparation_time: '15', servings: '2', instructions: '', notes: '', image_url: '', ingredients: [] });
+    setForm({ name: '', category: 'Café da Manhã', preparation_time: '15', servings: '2', instructions: '', notes: '', image_url: '', ingredients: [] });
     setShowForm(true);
   };
 
