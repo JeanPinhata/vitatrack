@@ -124,9 +124,9 @@ export function ProfilePage() {
         <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>Gerencie seus dados pessoais e preferências</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: '24px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
         {/* User card */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: '1 1 240px', maxWidth: '320px' }}>
           <div className="vt-card" style={{ textAlign: 'center', padding: '28px 20px' }}>
             <input
               type="file"
@@ -216,7 +216,7 @@ export function ProfilePage() {
         </div>
 
         {/* Content */}
-        <div>
+        <div style={{ flex: '1 1 300px' }}>
           {tab === 'profile' && (
             <div className="vt-card">
               <h3 style={{ fontWeight: 600, marginBottom: '20px' }}>Informações pessoais</h3>

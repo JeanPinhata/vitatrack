@@ -503,3 +503,108 @@ p {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
 }
+
+/* ===================================================
+   RESPONSIVE — SIDEBAR / BOTTOM NAV VISIBILITY
+   =================================================== */
+
+/* Desktop: show sidebar, hide bottom nav */
+@media (min-width: 1025px) {
+  .bottom-nav-mobile {
+    display: none !important;
+  }
+}
+
+/* Mobile/tablet: hide sidebar, show bottom nav */
+@media (max-width: 1024px) {
+  .sidebar-desktop {
+    display: none !important;
+  }
+}
+
+/* ===================================================
+   RESPONSIVE — TOPBAR
+   =================================================== */
+@media (max-width: 768px) {
+  .topbar-container {
+    padding: 0 16px !important;
+  }
+  .quote-pill {
+    display: none !important;
+  }
+  .quick-action-label {
+    display: none !important;
+  }
+}
+
+/* ===================================================
+   RESPONSIVE — DASHBOARD SIDE-BY-SIDE GRID
+   =================================================== */
+.dashboard-side-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 640px) {
+  .dashboard-side-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===================================================
+   RESPONSIVE — PROFILE PAGE
+   =================================================== */
+@media (max-width: 768px) {
+  .profile-grid-inner {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ===================================================
+   RESPONSIVE — CARDS / VÁRIOS COMPONENTES
+   =================================================== */
+@media (max-width: 480px) {
+  .vt-card {
+    padding: 16px;
+  }
+  .stat-card {
+    padding: 16px 18px;
+  }
+  h1 {
+    font-size: 1.4rem;
+  }
+}
+
+/* ===================================================
+   RESPONSIVE — MODALS
+   =================================================== */
+@media (max-width: 600px) {
+  .vt-modal-content {
+    border-radius: var(--radius-lg);
+    max-height: 95vh;
+  }
+  .vt-modal-body {
+    padding: 16px;
+  }
+  .vt-modal-header,
+  .vt-modal-footer {
+    padding: 14px 16px;
+  }
+}
+
+/* ===================================================
+   RESPONSIVE — TOAST
+   =================================================== */
+@media (max-width: 600px) {
+  .vt-toast-container {
+    left: 12px;
+    right: 12px;
+    bottom: calc(var(--mobile-nav-height) + 12px);
+  }
+  .vt-toast {
+    min-width: unset;
+    width: 100%;
+  }
+}

@@ -314,7 +314,7 @@ export function Dashboard({ onSelectTab }) {
       </div>
 
       {/* Measurements Summary + Insights Side-by-side */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+      <div className="dashboard-side-grid">
         {/* Medidas Summary */}
         <div className="vt-card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
