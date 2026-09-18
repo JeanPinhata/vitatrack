@@ -2,8 +2,60 @@ import express from 'express';
 import crypto from 'node:crypto';
 import { db } from '../db.js';
 import { authenticateToken } from '../auth.js';
+import { fitRecipes } from '../recipesData.js';
 
 const router = express.Router();
+
+// POST /api/recipes/seed-all - Insere as 50 receitas fit para todos os usuários existentes
+// Protegido por ADMIN_SECRET no env. Chamar uma vez após o deploy.
+router.post('/seed-all', async (req, res) => {
+  const secret = req.headers['x-admin-secret'];
+  const expectedSecret = process.env.ADMIN_SECRET || 'vitatrack-admin-2026';
+
+  if (secret !== expectedSecret) {
+    return res.status(401).json({ error: 'Não autorizado.' });
+  }
+
+  try {
+    const usersRes = await db.execute({ sql: 'SELECT id FROM users', args: [] });
+    const users = usersRes.rows;
+
+    let totalInserted = 0;
+    let totalSkipped = 0;
+
+    for (const user of users) {
+      for (const r of fitRecipes) {
+        const recipeId = `${r.id}-${user.id}`;
+        try {
+          await db.execute({
+            sql: 'INSERT OR IGNORE INTO recipes (id, user_id, name, category, preparation_time, servings, instructions, image_url, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            args: [recipeId, user.id, r.name, r.category, r.prep, r.servings, r.instructions, r.image_url, r.notes]
+          });
+
+          for (let i = 0; i < r.ingredients.length; i++) {
+            const ing = r.ingredients[i];
+            await db.execute({
+              sql: 'INSERT OR IGNORE INTO recipe_ingredients (id, recipe_id, food_name, quantity, unit, protein_amount) VALUES (?, ?, ?, ?, ?, ?)',
+              args: [`ing-${recipeId}-${i}`, recipeId, ing.food_name, ing.quantity, ing.unit, ing.protein]
+            });
+          }
+          totalInserted++;
+        } catch (e) {
+          totalSkipped++;
+        }
+      }
+    }
+
+    return res.json({
+      message: `Seed concluído! ${totalInserted} receitas inseridas, ${totalSkipped} já existiam.`,
+      users: users.length,
+      recipesPerUser: fitRecipes.length
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Erro ao executar seed.', detail: err.message });
+  }
+});
 
 // GET all recipes
 router.get('/', authenticateToken, async (req, res) => {
