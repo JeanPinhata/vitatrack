@@ -154,13 +154,13 @@ export async function runSeed() {
       const r = fitRecipes[rIdx];
       const recipeId = `${r.id}-${userRow.id}`;
       await db.execute({
-        sql: 'INSERT OR IGNORE INTO recipes (id, user_id, name, category, preparation_time, servings, instructions, image_url, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        sql: 'INSERT OR REPLACE INTO recipes (id, user_id, name, category, preparation_time, servings, instructions, image_url, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         args: [recipeId, userRow.id, r.name, r.category, r.prep, r.servings, r.instructions, r.image_url, r.notes]
       });
       for (let iIdx = 0; iIdx < r.ingredients.length; iIdx++) {
         const ing = r.ingredients[iIdx];
         await db.execute({
-          sql: 'INSERT OR IGNORE INTO recipe_ingredients (id, recipe_id, food_name, quantity, unit, protein_amount) VALUES (?, ?, ?, ?, ?, ?)',
+          sql: 'INSERT OR REPLACE INTO recipe_ingredients (id, recipe_id, food_name, quantity, unit, protein_amount) VALUES (?, ?, ?, ?, ?, ?)',
           args: [`ing-${recipeId}-${iIdx}`, recipeId, ing.food_name, ing.quantity, ing.unit, ing.protein]
         });
       }
