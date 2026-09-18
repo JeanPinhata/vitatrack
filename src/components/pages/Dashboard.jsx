@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Scale, Ruler, Target, TrendingUp, Plus, Activity, Lightbulb, ChevronRight } from 'lucide-react';
+import { Scale, Ruler, Target, TrendingUp, Plus, Activity, Lightbulb, ChevronRight, Droplets } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { WeightChart } from '../charts/WeightChart';
 
@@ -19,6 +19,7 @@ export function Dashboard({ onSelectTab }) {
   const [weightData, setWeightData] = useState(null);
   const [measData, setMeasData] = useState(null);
   const [proteinData, setProteinData] = useState(null);
+  const [waterData, setWaterData] = useState(null);
   const [chartPeriod, setChartPeriod] = useState('all');
   const [chartData, setChartData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,21 +30,24 @@ export function Dashboard({ onSelectTab }) {
   async function loadAll() {
     setLoading(true);
     try {
-      const [wRes, mRes, pRes] = await Promise.all([
+      const [wRes, mRes, pRes, waterRes] = await Promise.all([
         fetch(`/api/weights?period=${chartPeriod}`, { headers }),
         fetch('/api/measurements', { headers }),
-        fetch(`/api/proteins/dashboard?date=${today}`, { headers })
+        fetch(`/api/proteins/dashboard?date=${today}`, { headers }),
+        fetch(`/api/water?date=${today}`, { headers })
       ]);
 
-      const [wData, mData, pData] = await Promise.all([
+      const [wData, mData, pData, waterDataJson] = await Promise.all([
         wRes.json(),
         mRes.json(),
-        pRes.json()
+        pRes.json(),
+        waterRes.json()
       ]);
 
       setWeightData(wData);
       setMeasData(mData);
       setProteinData(pData);
+      setWaterData(waterDataJson);
       setChartData(wData.chartData || []);
     } catch (err) {
       console.error('Erro ao carregar dashboard:', err);
@@ -63,6 +67,26 @@ export function Dashboard({ onSelectTab }) {
       const data = await res.json();
       setChartData(data.chartData || []);
     } catch {}
+  };
+
+  const handleAddWater = async (amount_ml) => {
+    try {
+      const res = await fetch('/api/water', {
+        method: 'POST',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date: today, amount_ml })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setWaterData(prev => ({
+          ...prev,
+          total_ml: data.total_ml,
+          entries: [...(prev?.entries || []), { id: Date.now(), amount_ml }]
+        }));
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // Calculate insights from real data
@@ -214,6 +238,50 @@ export function Dashboard({ onSelectTab }) {
                     )}
                   </div>
                 </>
+              )}
+            </div>
+
+            {/* Água hoje */}
+            <div className="stat-card" style={{ gridColumn: 'span 1' }}>
+              <div className="stat-header">
+                <span>Água hoje</span>
+                <Droplets size={17} color="#3b82f6" />
+              </div>
+              <div className="stat-value">
+                {waterData ? formatNum(waterData.total_ml, 0) : '0'}
+                <small>/ {waterData?.goal || 2500} ml</small>
+              </div>
+              <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
+                <button 
+                  onClick={() => handleAddWater(250)}
+                  className="vt-btn vt-btn-outline vt-btn-sm" 
+                  style={{ flex: 1, padding: '4px', fontSize: '0.8rem', borderColor: '#bfdbfe', color: '#2563eb' }}
+                >
+                  +250ml
+                </button>
+                <button 
+                  onClick={() => handleAddWater(500)}
+                  className="vt-btn vt-btn-outline vt-btn-sm" 
+                  style={{ flex: 1, padding: '4px', fontSize: '0.8rem', borderColor: '#bfdbfe', color: '#2563eb' }}
+                >
+                  +500ml
+                </button>
+              </div>
+              {waterData && (
+                <div style={{ marginTop: '12px' }}>
+                  <div style={{ height: '6px', backgroundColor: '#eff6ff', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
+                    <div style={{
+                      height: '100%',
+                      width: `${Math.min(100, Math.round((waterData.total_ml / (waterData.goal || 2500)) * 100))}%`,
+                      backgroundColor: '#3b82f6',
+                      borderRadius: 'var(--radius-full)',
+                      transition: 'width 0.7s ease'
+                    }} />
+                  </div>
+                  <div className="stat-footer" style={{ marginTop: '4px' }}>
+                    <span>{Math.round((waterData.total_ml / (waterData.goal || 2500)) * 100)}% da meta</span>
+                  </div>
+                </div>
               )}
             </div>
 

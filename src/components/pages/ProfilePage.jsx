@@ -306,6 +306,33 @@ export function ProfilePage() {
                 </div>
               </div>
 
+              {/* Import Recipes */}
+              <div className="vt-card">
+                <h3 style={{ fontWeight: 600, marginBottom: '14px' }}>Pacote Extra de Receitas</h3>
+                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '14px', lineHeight: 1.5 }}>
+                  Adicione automaticamente 20 novas receitas fit e doces saudáveis ao seu perfil com apenas um clique.
+                </p>
+                <button 
+                  onClick={async () => {
+                    setSaving(true);
+                    try {
+                      const res = await fetch('/api/recipes/seed-extra', { method: 'POST', headers });
+                      const data = await res.json();
+                      if (!res.ok) throw new Error(data.error);
+                      showToast(data.message || 'Receitas adicionadas com sucesso!');
+                    } catch (err) {
+                      showToast(err.message || 'Erro ao adicionar receitas.', 'error');
+                    } finally {
+                      setSaving(false);
+                    }
+                  }} 
+                  className="vt-btn vt-btn-primary"
+                  disabled={saving}
+                >
+                  {saving ? 'Importando...' : 'Importar 20 Receitas Fit'}
+                </button>
+              </div>
+
               {/* Logout */}
               <div className="vt-card">
                 <h3 style={{ fontWeight: 600, marginBottom: '14px' }}>Sair da conta</h3>

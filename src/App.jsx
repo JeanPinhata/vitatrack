@@ -19,6 +19,7 @@ import { MeasurementsPage } from './components/pages/MeasurementsPage';
 import { ProteinsPage } from './components/pages/ProteinsPage';
 import { RecipesPage } from './components/pages/RecipesPage';
 import { HistoryPage } from './components/pages/HistoryPage';
+import { PhotosPage } from './components/pages/PhotosPage';
 import { EvolutionPage } from './components/pages/EvolutionPage';
 import { ProfilePage } from './components/pages/ProfilePage';
 
@@ -63,6 +64,7 @@ function AppContent() {
       case 'proteins': return <ProteinsPage />;
       case 'recipes': return <RecipesPage />;
       case 'history': return <HistoryPage />;
+      case 'photos': return <PhotosPage />;
       case 'evolution': return <EvolutionPage />;
       case 'profile': return <ProfilePage />;
       default: return <Dashboard onSelectTab={setActiveTab} />;

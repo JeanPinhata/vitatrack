@@ -140,5 +140,21 @@ export async function initDatabase() {
       notes TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS water_entries (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      date DATE NOT NULL,
+      amount_ml INTEGER NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
+
+  try {
+    await db.execute('ALTER TABLE user_settings ADD COLUMN water_goal INTEGER DEFAULT 2500');
+  } catch (err) {
+    if (!err.message.includes('duplicate column name')) {
+      console.error('Info: water_goal column might already exist', err.message);
+    }
+  }
 }

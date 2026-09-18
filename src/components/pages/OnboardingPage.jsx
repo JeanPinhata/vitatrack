@@ -84,7 +84,14 @@ export function OnboardingPage() {
               className="vt-input"
               placeholder="Ex.: 78"
               value={form.initial_weight}
-              onChange={e => setForm({ ...form, initial_weight: e.target.value })}
+              onChange={e => {
+                const weight = e.target.value;
+                const newForm = { ...form, initial_weight: weight };
+                if (weight && !isNaN(weight)) {
+                  newForm.protein_goal = String(Math.round(parseFloat(weight) * 2.0));
+                }
+                setForm(newForm);
+              }}
             />
             <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
               Opcional — você pode registrar pesagens a qualquer momento.
