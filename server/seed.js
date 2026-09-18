@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { db, initDatabase } from './db.js';
 import { hashPassword } from './auth.js';
+import { fitRecipes } from './recipesData.js';
 
 export async function runSeed() {
   await initDatabase();
@@ -113,28 +114,7 @@ export async function runSeed() {
       });
     }
 
-    const recipes = [
-      {
-        id: 'recipe-1', name: 'Frango Cremoso com Ricota', category: 'Almoço & Jantar', prep: 15, servings: 4,
-        image_url: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500&auto=format&fit=crop&q=80',
-        instructions: '1. Grelhe os filés de peito de frango cortados em cubos.\n2. Acrescente o creme de ricota light.\n3. Finalize com cheiro verde.',
-        notes: 'Receita super proteica e rápida.',
-        ingredients: [
-          { food_name: 'Peito de Frango Grelhado', quantity: 500, unit: 'g', protein: 155.0 },
-          { food_name: 'Creme de Ricota Light', quantity: 100, unit: 'g', protein: 9.0 }
-        ]
-      },
-      {
-        id: 'recipe-2', name: 'Omelete de Espinafre e Cottage', category: 'Café da Manhã', prep: 10, servings: 2,
-        image_url: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=500&auto=format&fit=crop&q=80',
-        instructions: '1. Bata os ovos com sal e orégano.\n2. Refogue espinafre e acrescente os ovos.\n3. Espalhe o cottage por cima.',
-        notes: 'Ótimo para o café da manhã.',
-        ingredients: [
-          { food_name: 'Ovos Cozidos / Mexidos', quantity: 200, unit: 'g', protein: 26.0 },
-          { food_name: 'Queijo Cottage Light', quantity: 100, unit: 'g', protein: 12.0 }
-        ]
-      }
-    ];
+    const recipes = fitRecipes;
 
     for (const r of recipes) {
       await db.execute({

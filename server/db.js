@@ -157,4 +157,12 @@ export async function initDatabase() {
       console.error('Info: water_goal column might already exist', err.message);
     }
   }
+
+  try {
+    await db.execute('ALTER TABLE progress_photos ADD COLUMN images_json TEXT');
+  } catch (err) {
+    if (!err.message.includes('duplicate column name')) {
+      console.error('Info: images_json column might already exist', err.message);
+    }
+  }
 }
