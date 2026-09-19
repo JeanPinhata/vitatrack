@@ -32,7 +32,9 @@ export async function runSeed() {
   const globalFoods = [
     // Carnes & Aves
     { name: 'Peito de Frango Grelhado', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 31.0 },
+    { name: 'Frango Desfiado Cozido', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 30.0 },
     { name: 'Patinho Moído Grelhado', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 32.0 },
+    { name: 'Hambúrguer de Carne (Bovino)', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 25.0 },
     { name: 'Alcatra Grelhada', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 31.9 },
     { name: 'Coxão Mole Grelhado', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 32.4 },
     { name: 'Filé Mignon Grelhado', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 32.8 },
@@ -85,7 +87,22 @@ export async function runSeed() {
     { name: 'Quinoa Cozida', category: 'Grãos & Cereais', ref: 100, unit: 'g', prot: 4.4 },
     { name: 'Chia', category: 'Grãos & Cereais', ref: 15, unit: 'g', prot: 2.5 },
     { name: 'Massa Integral Cozida', category: 'Grãos & Cereais', ref: 100, unit: 'g', prot: 5.0 },
+    { name: 'Pão Integral em Fatias', category: 'Grãos & Cereais', ref: 50, unit: 'g', prot: 5.0 },
+    { name: 'Torrada Integral', category: 'Grãos & Cereais', ref: 30, unit: 'g', prot: 4.0 },
     
+    // Legumes & Verduras
+    { name: 'Brócolis Cozido', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 2.8 },
+    { name: 'Espinafre Refogado', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 3.0 },
+    { name: 'Cenoura Cozida', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 0.8 },
+    { name: 'Abobrinha Cozida', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 1.2 },
+    { name: 'Couve Refogada', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 2.5 },
+    { name: 'Batata Doce Cozida', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 1.6 },
+    { name: 'Batata Inglesa Cozida', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 1.9 },
+    { name: 'Mandioca Cozida', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 1.4 },
+    { name: 'Beterraba Cozida', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 1.6 },
+    { name: 'Tomate', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 0.9 },
+    { name: 'Alface', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 1.4 },
+
     // Oleaginosas
     { name: 'Castanha-do-Pará', category: 'Oleaginosas', ref: 100, unit: 'g', prot: 18.0 },
     { name: 'Amendoim Torrado', category: 'Oleaginosas', ref: 100, unit: 'g', prot: 25.8 },
