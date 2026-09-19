@@ -103,6 +103,17 @@ export async function runSeed() {
     { name: 'Tomate', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 0.9 },
     { name: 'Alface', category: 'Legumes & Verduras', ref: 100, unit: 'g', prot: 1.4 },
 
+    // Frutas
+    { name: 'Banana', category: 'Frutas', ref: 100, unit: 'g', prot: 1.1 },
+    { name: 'Morango', category: 'Frutas', ref: 100, unit: 'g', prot: 0.7 },
+    { name: 'Kiwi', category: 'Frutas', ref: 100, unit: 'g', prot: 1.1 },
+    { name: 'Laranja', category: 'Frutas', ref: 100, unit: 'g', prot: 0.9 },
+    { name: 'Mamão', category: 'Frutas', ref: 100, unit: 'g', prot: 0.5 },
+    { name: 'Melão', category: 'Frutas', ref: 100, unit: 'g', prot: 0.8 },
+    { name: 'Mexerica (Tangerina)', category: 'Frutas', ref: 100, unit: 'g', prot: 0.8 },
+    { name: 'Maçã', category: 'Frutas', ref: 100, unit: 'g', prot: 0.3 },
+    { name: 'Uva', category: 'Frutas', ref: 100, unit: 'g', prot: 0.7 },
+
     // Oleaginosas
     { name: 'Castanha-do-Pará', category: 'Oleaginosas', ref: 100, unit: 'g', prot: 18.0 },
     { name: 'Amendoim Torrado', category: 'Oleaginosas', ref: 100, unit: 'g', prot: 25.8 },
