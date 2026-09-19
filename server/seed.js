@@ -30,24 +30,69 @@ export async function runSeed() {
   }
 
   const globalFoods = [
+    // Carnes & Aves
     { name: 'Peito de Frango Grelhado', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 31.0 },
-    { name: 'Ovos Cozidos / Mexidos', category: 'Ovos', ref: 100, unit: 'g', prot: 13.0 },
     { name: 'Patinho Moído Grelhado', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 32.0 },
+    { name: 'Alcatra Grelhada', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 31.9 },
+    { name: 'Coxão Mole Grelhado', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 32.4 },
+    { name: 'Filé Mignon Grelhado', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 32.8 },
+    { name: 'Sobrecoxa de Frango Assada', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 28.0 },
+    { name: 'Carne Seca Cozida', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 26.5 },
+    { name: 'Lombo Suíno Assado', category: 'Carnes & Aves', ref: 100, unit: 'g', prot: 28.0 },
+
+    // Peixes & Frutos do Mar
     { name: 'Salmão Grelhado', category: 'Peixes & Frutos do Mar', ref: 100, unit: 'g', prot: 25.0 },
     { name: 'Filé de Tilápia', category: 'Peixes & Frutos do Mar', ref: 100, unit: 'g', prot: 26.0 },
     { name: 'Atum Sólido ao Natural', category: 'Peixes & Frutos do Mar', ref: 100, unit: 'g', prot: 26.0 },
+    { name: 'Sardinha em Lata', category: 'Peixes & Frutos do Mar', ref: 100, unit: 'g', prot: 24.0 },
+    { name: 'Camarão Cozido', category: 'Peixes & Frutos do Mar', ref: 100, unit: 'g', prot: 24.0 },
+    { name: 'Merluza Assada', category: 'Peixes & Frutos do Mar', ref: 100, unit: 'g', prot: 24.0 },
+
+    // Ovos
+    { name: 'Ovos Cozidos / Mexidos', category: 'Ovos', ref: 100, unit: 'g', prot: 13.0 },
+    { name: 'Clara de Ovo Cozida', category: 'Ovos', ref: 100, unit: 'g', prot: 11.0 },
+
+    // Laticínios
     { name: 'Queijo Cottage Light', category: 'Laticínios', ref: 100, unit: 'g', prot: 12.0 },
     { name: 'Iogurte Grego Natural', category: 'Laticínios', ref: 100, unit: 'g', prot: 10.0 },
+    { name: 'Iogurte Natural Desnatado', category: 'Laticínios', ref: 100, unit: 'g', prot: 4.0 },
     { name: 'Creme de Ricota Light', category: 'Laticínios', ref: 100, unit: 'g', prot: 9.0 },
     { name: 'Queijo Minas Frescal', category: 'Laticínios', ref: 100, unit: 'g', prot: 14.0 },
+    { name: 'Leite Desnatado', category: 'Laticínios', ref: 200, unit: 'ml', prot: 6.0 },
+    { name: 'Leite Integral', category: 'Laticínios', ref: 200, unit: 'ml', prot: 6.0 },
+    { name: 'Queijo Mussarela', category: 'Laticínios', ref: 100, unit: 'g', prot: 22.0 },
+    { name: 'Queijo Prato', category: 'Laticínios', ref: 100, unit: 'g', prot: 22.0 },
+    { name: 'Queijo Parmesão Ralado', category: 'Laticínios', ref: 10, unit: 'g', prot: 3.5 },
+
+    // Suplementos
     { name: 'Whey Protein Concentrado', category: 'Suplementos', ref: 30, unit: 'g', prot: 24.0 },
+    { name: 'Whey Protein Isolado', category: 'Suplementos', ref: 30, unit: 'g', prot: 27.0 },
+    { name: 'Proteína de Soja Isolada', category: 'Suplementos', ref: 30, unit: 'g', prot: 25.0 },
+    { name: 'Barrinha de Proteína', category: 'Suplementos', ref: 1, unit: 'un', prot: 15.0 },
+
+    // Vegetais & Leguminosas
     { name: 'Tofu Firme', category: 'Vegetais & Leguminosas', ref: 100, unit: 'g', prot: 15.0 },
     { name: 'Feijão Carioca Cozido', category: 'Vegetais & Leguminosas', ref: 100, unit: 'g', prot: 5.0 },
+    { name: 'Feijão Preto Cozido', category: 'Vegetais & Leguminosas', ref: 100, unit: 'g', prot: 4.5 },
     { name: 'Lentilha Cozida', category: 'Vegetais & Leguminosas', ref: 100, unit: 'g', prot: 9.0 },
     { name: 'Grão de Bico Cozido', category: 'Vegetais & Leguminosas', ref: 100, unit: 'g', prot: 8.5 },
+    { name: 'Ervilha Cozida', category: 'Vegetais & Leguminosas', ref: 100, unit: 'g', prot: 5.0 },
+    { name: 'Edamame', category: 'Vegetais & Leguminosas', ref: 100, unit: 'g', prot: 11.0 },
+
+    // Grãos & Cereais
     { name: 'Arroz Branco / Integral', category: 'Grãos & Cereais', ref: 100, unit: 'g', prot: 2.6 },
     { name: 'Aveia em Flocos', category: 'Grãos & Cereais', ref: 100, unit: 'g', prot: 14.0 },
-    { name: 'Castanha-do-Pará', category: 'Oleaginosas', ref: 100, unit: 'g', prot: 18.0 }
+    { name: 'Quinoa Cozida', category: 'Grãos & Cereais', ref: 100, unit: 'g', prot: 4.4 },
+    { name: 'Chia', category: 'Grãos & Cereais', ref: 15, unit: 'g', prot: 2.5 },
+    { name: 'Massa Integral Cozida', category: 'Grãos & Cereais', ref: 100, unit: 'g', prot: 5.0 },
+    
+    // Oleaginosas
+    { name: 'Castanha-do-Pará', category: 'Oleaginosas', ref: 100, unit: 'g', prot: 18.0 },
+    { name: 'Amendoim Torrado', category: 'Oleaginosas', ref: 100, unit: 'g', prot: 25.8 },
+    { name: 'Pasta de Amendoim', category: 'Oleaginosas', ref: 15, unit: 'g', prot: 4.0 },
+    { name: 'Amêndoa', category: 'Oleaginosas', ref: 100, unit: 'g', prot: 21.0 },
+    { name: 'Nozes', category: 'Oleaginosas', ref: 100, unit: 'g', prot: 15.0 },
+    { name: 'Semente de Abóbora', category: 'Oleaginosas', ref: 100, unit: 'g', prot: 30.0 }
   ];
 
   for (let idx = 0; idx < globalFoods.length; idx++) {
